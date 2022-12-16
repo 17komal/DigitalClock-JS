@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Digital Clock</title>
+		<style type="text/css">
+			
+			family=Open+Sans';
+			*{
+			margin: 0;
+			padding: 0;
+			}
+			body{
+			background: radial-gradient(#eee, #668);
+			height: 90vh;
+			width: 99vw;
+			}
+			#date{
+			background: rgba(0, 0, 0, 0.1);
+			color: #fff;
+			font-family: "Open Sans", sas-serif;
+			font-size: 2em;
+			padding: 0.5em;
+			text-align: center;
+			}
+			#select {
+			background: rgba(0, 0, 0, 0.1);
+			color: #fff;
+			font-family: "Open Sans", sas-serif;
+			font-size: 1.2em;
+			padding: 0.5em;
+			text-align: center;
+			width: 75%;
+			margin-left: 10%;
+
+			}
+			#select option{
+				height: 10px;
+			background: rgba(0, 0, 0, 0.1);
+			color: #333;
+			font-family: "Open Sans", sas-serif;
+			font-size: 1.2em;
+			padding: 0.5em;
+			text-align: center;
+			width: 75%;
+			margin-left: 10%;
+			}
+			#clock{
+			align-items: center;
+			-webkit-align-items: center;
+			display: flex;
+			display: -webkit-flex;
+			height: 130px;
+			justify-content: space-around;
+			-webkit-justify-content: space-around;
+			left: calc(50% - 300px);
+			position: absolute;
+			top: calc(50% - 65px);
+			width: 600px;
+			}
+			.unit{
+			background: linear-gradient(#aaa, #777);
+			border-radius: 15px;
+			box-shadow: 0 2px 2px #444;
+			color: #fff;
+			font-family: "Open Sans", sans-serif;
+			font-size: 5em;
+			height: 100%;
+			line-height: 130px;
+			margin: 0 10px;
+			text-align: center;
+			text-shadow: 0 2px 2px #666;
+			width: 23%;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div>
+			<h1></h1>	
+			<p id="date">Time</p>
+			
+			<select id="select" onchange="showTime();">
+				<option>--Select--</option>
+				<option value="Asia/Dubai">Abu Dhabi</option>
+				<option value="America/Anchorage">Alaska</option>
+				<option value="Europe/Amsterdam">Amsterdam</option>
+				<option value="Asia/Kolkata">Bangalore</option>
+				<option value="Asia/Bangkok">Bangkok</option>
+				<option value="Asia/Hong_Kong">Beijing</option>
+				<option value="Europe/Amsterdam">Berlin</option>
+				<option value="America/Bogota">Bogota</option>
+				<option value="America/Campo_Grande">Brazil</option>
+				<option value="America/Glace_Bay">Canada</option>
+				<option value="Asia/Kolkata">Chennai</option>
+				<option value="America/Havana">Cuba</option>
+				<option value="America/Denver">Denver</option>
+				<option value="Asia/Dhaka">Dhaka</option>
+				<option value="Chile/EasterIsland">Easter Island</option>
+				<option value="America/Godthab">Greenland</option>
+				<option value="Etc/GMT+10">Hawaii</option>
+				<option value="Asia/Hong_Kong">Hong Kong</option>
+				<option value="Asia/Kolkata">Hyderabad</option>
+				<option value="Asia/Bangkok">Jakarta</option>
+				<option value="Asia/Kabul">Kabul</option>
+				<option value="Asia/Katmandu">Kathmandu</option>
+				<option value="Asia/Kolkata">Kolkata</option>
+				<option value="Europe/London">London</option>				
+				<option value="America/Los_Angeles">Los Angeles</option>
+				<option value="America/Cancun">Mexico City</option>
+				<option value="Europe/Moscow">Moscow</option>
+				<option value="Asia/Kolkata">Mumbai</option>
+				<option value="Asia/Dubai">Muscat</option>
+				<option value="Africa/Addis_Ababa"> Nairobi</option>
+				<option value="Asia/Kolkata">New Delhi</option>
+				<option value="Europe/Brussels">Paris</option>
+				<option value="Europe/Belgrade">Prague</option>
+				<option value="Asia/Kolkata">Pune</option>
+				<option value="America/Bogota">Rio Branco</option>
+				<option value="Europe/Amsterdam">Rome</option>
+				<option value="Asia/Seoul">Seoul</option>
+				<option value="Europe/Amsterdam">Stockholm</option>
+				<option value="Asia/Damascus">Syria</option>
+				<option value="Asia/Tokyo">Tokyo</option>
+				<option value="Europe/Amsterdam">Vienna</option>
+				<option value="Africa/Algiers">West Central Africa</option>
+				
+			</select>
+			<div id="clock">
+				<p class="unit" id="hours"></p>
+				<p class="unit" id="minutes"></p>
+				<p class="unit" id="seconds"></p>
+				<p class="unit" id="ampm"></p>
+			</div>
+		</div>
+		
+		`
+		<script type="text/javascript">
+			
+			function showTime()
+			{
+				
+				var selectedTimeZone = document.getElementById("select").value;console.log(selectedTimeZone);
+				var date = new Date(new Date().toLocaleString("en-US", {timeZone: selectedTimeZone}));;
+				var hour = date.getHours();
+				var min = date.getMinutes();
+				var sec = date.getSeconds();
+				var session = 'AM';
+				if(hour == 0)
+				{
+					hour = 12;
+				}
+				else if( hour > 12)
+				{
+					hour = hour-12;
+					session = 'PM';
+				}
+				hour= (hour < 10)?"0"+hour:hour;
+				min = (min < 10 )?"0"+min:min;
+				sec = (sec < 10 )?"0"+sec:sec;
+				document.getElementById('hours').innerHTML = hour ;
+				document.getElementById('minutes').innerHTML =  min ;
+				document.getElementById('seconds').innerHTML =  sec ;
+				document.getElementById('ampm').innerHTML = session;
+				
+				let d = new Date(new Date().toLocaleString("en-US", {timeZone: "Pacific/Honolulu"}));
+				console.log(d.getHours());
+				setTimeout(showTime,1000);
+			}
+			//showTime();
+			
+			
+			
+			
+		</script>
+	</body>
+</html>
